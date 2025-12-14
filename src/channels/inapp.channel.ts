@@ -1,7 +1,7 @@
 import { NotificationChannel } from "./notification.channel";
 
 export class InAppChannel implements NotificationChannel {
-  send(message: string, userId: string): void {
+  async send(message: string, userId: string): Promise<void> {
     console.log(`[In App] To ${userId}: ${message}`);
   }
 }

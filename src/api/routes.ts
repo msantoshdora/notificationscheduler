@@ -11,11 +11,12 @@ export function createRoutes(app: Express) {
         validateNotificationRequest(req.body);
 
         const {userId, type, payload, sendAt} = req.body;
+       
         service.send({userId, type, payload, sendAt});
 
-        res.json({ status: "OK" });
+        res.json({ status: "Notification Accepted Successfully" });
     } catch (error) {
-        res.json({ status: "received wrong data" });
+        res.json({ status: "Notification Error" });
     }
   });
 

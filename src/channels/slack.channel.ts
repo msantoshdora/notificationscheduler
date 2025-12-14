@@ -1,7 +1,7 @@
 import { NotificationChannel } from "./notification.channel";
 
 export class SlackChannel implements NotificationChannel {
-  send(message: string, userId: string): void {
+  async send(message: string, userId: string): Promise<void> {
     console.log(`[SLACK] To ${userId}: ${message}`);
   }
 }

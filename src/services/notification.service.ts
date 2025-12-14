@@ -4,7 +4,7 @@ import { ChannelType } from "../types/channel.types";
 import { ChannelResolver } from "./channel-resolver.service";
 
 export class NotificationService {
-    send(notification: NotificationRequest): void {
+    send(notification: NotificationRequest) {
         try {
         const channelTypes: ChannelType[] = this.mapNotificationTypeToChannel(notification.type);
 
@@ -14,8 +14,8 @@ export class NotificationService {
 
         const template = `Notification of type ${notification.type} with payload ${JSON.stringify(notification.payload)} send at ${notification.sendAt}`;
 
-        channels.forEach(channel =>{
-          channel.send(template, notification.userId)});
+        channels.forEach(async channel =>{
+          await channel.send(template, notification.userId)});
         } catch (error) {
             console.error("Failed to send notification:", error);
         }
