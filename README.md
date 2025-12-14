@@ -35,4 +35,15 @@ Notification Types:
 
 Flow:
 
-API call ---> NotificationService ---> Figure out the route for the notification type --> Either Send or Schedule
+API call ---> NotificationService ---> Figure out the route for the notification type --> Either Send or Schedule.
+
+
+
+Dependencies:
+TypeScript, Express.
+Install:
+    npm install express
+    npm install -D typescript ts-node nodemon @types/node @types/express
+
+Command to run:
+npm run dev
