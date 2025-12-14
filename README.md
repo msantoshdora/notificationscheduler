@@ -15,11 +15,12 @@ APIs
         }
 
 Example, create a notification event,
-        Request: {
+        Request: 
+        {
             "type": "notificationtype",
             "userId": "sjflsfjo",
             "payload": {
-                "name": "santosh"
+                "message": "System failure"
             },
             "sendAt"?: "date-time"
         }
