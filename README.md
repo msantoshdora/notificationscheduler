@@ -1,4 +1,4 @@
-NotificationService
+NotificationService API, flow.
 
 APIs 
   Create Notification 
