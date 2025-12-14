@@ -15,7 +15,7 @@ APIs
             "notificationId": "uuid"
         }
 
-Example, create a notification event,
+Example, create a notification event:
 
         Request: 
 
@@ -30,6 +30,7 @@ Example, create a notification event,
 
 Request example:
 
+```console
 curl -X POST http://localhost:3000/api/v1/notifications \
   -H "Content-Type: application/json" \
   -d '{
@@ -38,9 +39,11 @@ curl -X POST http://localhost:3000/api/v1/notifications \
     "payload": { "name": "Rahusdfsl" },
     "sendAt": ""
   }'
+```
 
 Example, Notification Types:
 
+```javascript
 CHANNEL_MAP = {
   ERROR: [SLACK],
   ALERT: [SLACK],
@@ -50,14 +53,16 @@ CHANNEL_MAP = {
   WARN: [IN_APP, EMAIL],
 };
 
+```
 
 Flow:
 
 API call ---> NotificationService to handle notifications asyncronously---> Figure out the route for the notification type --> Either Send or Schedule.
 
-Skipped (because of not having persistant state):
+
+Skipped/Design choice (because of not having persistant state):
  - User-defined scheduling
- - template addition
+ - User defined template addition
 
 
 Dependencies:
@@ -65,8 +70,12 @@ TypeScript, Express.
 
 
 Install:
+```console
     npm install express
     npm install -D typescript ts-node nodemon @types/node @types/express
+```
 
 Command to run:
+```console
 npm run dev
+```
