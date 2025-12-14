@@ -1,7 +1,8 @@
 NotificationService API, flow.
 
 APIs 
-  Create Notification 
+  Create Notification:
+
         POST /api/v1/notifications
          - type
          - userId
@@ -15,7 +16,9 @@ APIs
         }
 
 Example, create a notification event,
+
         Request: 
+
         {
             "type": "notificationtype",
             "userId": "sjflsfjo",
@@ -26,6 +29,7 @@ Example, create a notification event,
         }
 
 Request example:
+
 curl -X POST http://localhost:3000/api/v1/notifications \
   -H "Content-Type: application/json" \
   -d '{
@@ -36,6 +40,7 @@ curl -X POST http://localhost:3000/api/v1/notifications \
   }'
 
 Example, Notification Types:
+
 CHANNEL_MAP = {
   ERROR: [SLACK],
   ALERT: [SLACK],

@@ -10,7 +10,7 @@ const notificationService = new NotificationService(templates);
 
 export function createRoutes(app: Express) {
   app.post("/api/v1/notifications", (req: Request, res: Response) => {
-    console.log('API called!!!');
+    console.log('Notifying user API called!!!');
     try {
         validateNotificationRequest(req.body);
 
