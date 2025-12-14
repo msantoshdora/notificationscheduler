@@ -79,3 +79,8 @@ Command to run:
 ```console
 npm run dev
 ```
+
+
+Tests:
+Inside src/tests
+command for running test: npm test
