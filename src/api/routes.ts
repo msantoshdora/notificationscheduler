@@ -10,9 +10,9 @@ export function createRoutes(app: Express) {
     try {
         validateNotificationRequest(req.body);
 
-        const {userId, type, payload, sendAt} = req.body;
+        const {userId, type, templateId, payload, sendAt} = req.body;
        
-        service.send({userId, type, payload, sendAt});
+        service.send({userId, type, templateId, payload, sendAt});
 
         res.json({ status: "Notification Accepted Successfully" });
     } catch (error) {

@@ -11,9 +11,6 @@ export function validateNotificationRequest(body: any) {
     throw new Error("userId is required");
   }
 
-  if (!body.sendAt) {
-    throw new Error("userId is required");
-  }
   if (!body.payload || typeof body.payload !== "object") {
     throw new Error("payload must be an object");
   }
