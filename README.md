@@ -26,11 +26,14 @@ Example, create a notification event,
         }
 
 
-Notification Types:
-1. ERROR ----> Slack, In-App, Email
-2. WARNING ----> Slack, Email
-3. INFO -----> Email
-4. CUSTOM ----> Slack
+Example, Notification Types:
+1."ERROR" -->SLACK
+2."INFO" ---> IN_APP, EMAIL
+3. "WARN" ----> IN_APP, EMAIL
+4."ALERT"  ---> SLACK
+5. "PROMOTION" ---> EMAIL
+6. "SYSTEM" --> SLACK
+7. default --> IN_APP, EMAIL
 
 
 Flow:

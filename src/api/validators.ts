@@ -6,6 +6,7 @@ export function validateNotificationRequest(body: any) {
   if (!body.type) {
     throw new Error("type is required");
   }
+
   if (!body.userId) {
     throw new Error("userId is required");
   }
