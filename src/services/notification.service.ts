@@ -25,7 +25,7 @@ export class NotificationService {
     send(notification: NotificationRequest) {
       try {
             const execute = () => {
-            const channelTypes: ChannelType[] = CHANNEL_MAP[notification.type];
+            const channelTypes: ChannelType[] = CHANNEL_MAP[notification.type] || [ChannelType.EMAIL];
 
             const channels = channelTypes.map(type => {
                 return ChannelResolver.resolve(type);
