@@ -1,28 +1,28 @@
-const templates: Record<string, string> = {
-  ALERT: "Alert! {{service}} service is down.",
-  PROMO: "Special offer for {{name}}. Free shipping on orders over $50!",
-};
+import { BaseTemplate } from "../templates/base.template";
 
 export class TemplateService {
-  static render(templateId: string | undefined, data: Record<string, any>): string {
+    constructor(private readonly templates: BaseTemplate[]) {}
+
+  render(
+    templateId: string | undefined,
+    data: Record<string, any>
+  ): string {
     try {
         if (!templateId) {
-         return JSON.stringify(data);
+        return JSON.stringify(data);
         }
 
-        let template = templates[templateId];
+        const template = this.templates.find(t =>
+          t.supports(templateId)
+        );
 
         if (!template) {
-          throw new Error("Template not found");
+        throw new Error(`Template not found: ${templateId}`);
         }
 
-        Object.keys(data).forEach((key) => {
-        template = template.replace(`{{${key}}}`, String(data[key]));
-        });
-
-        return template;
-        } catch (error) {
-            throw new Error("Template not found. Defined Wrong templateId");
-        }
+        return template.render(data);
+    } catch (error) {
+        throw new Error(`Failed to render template: ${(error as Error).message}`);  
+    }
    }
 }

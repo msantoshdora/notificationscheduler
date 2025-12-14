@@ -4,18 +4,34 @@ import { ChannelType } from "../types/channel.types";
 import { ChannelResolver } from "./channel-resolver.service";
 import { SchedulerService } from "./scheduler.service";
 import {TemplateService} from "./template.service";
+import { AlertTemplate } from "../templates/alert.template";
+import { PromoTemplate } from "../templates/promo.template";
+
+
+const CHANNEL_MAP: Record<NotificationType, ChannelType[]> = {
+  ERROR: [ChannelType.SLACK],
+  ALERT: [ChannelType.SLACK],
+  SYSTEM: [ChannelType.SLACK],
+  PROMOTION: [ChannelType.EMAIL],
+  INFO: [ChannelType.IN_APP, ChannelType.EMAIL],
+  WARN: [ChannelType.IN_APP, ChannelType.EMAIL],
+};
 
 export class NotificationService {
+    constructor(
+    private readonly templateService: TemplateService,
+  ) {}
 
     send(notification: NotificationRequest) {
       try {
             const execute = () => {
-            const channelTypes: ChannelType[] = this.mapNotificationTypeToChannel(notification.type);
+            const channelTypes: ChannelType[] = CHANNEL_MAP[notification.type];
 
             const channels = channelTypes.map(type => {
                 return ChannelResolver.resolve(type);
             });
-            const template = TemplateService.render(notification.templateId, notification.payload);
+
+            const template =  this.templateService.render(notification.templateId, notification.payload);
             
             channels.forEach(async (channel) =>{
                 try {
@@ -38,21 +54,6 @@ export class NotificationService {
             }
         } catch (error) {
             throw new Error(`Failed to send notification: ${(error as Error).message}`);
-        }
-    }
-
-    private mapNotificationTypeToChannel(type: NotificationType): ChannelType[] {
-        switch (type) {
-            case "ERROR":
-            case "ALERT":
-            case "SYSTEM":
-                return [ChannelType.SLACK];
-            case "PROMOTION":
-                return [ChannelType.EMAIL];
-            case "INFO":
-            case "WARN":
-            default:
-                return [ChannelType.IN_APP, ChannelType.EMAIL];
         }
     }
 }
