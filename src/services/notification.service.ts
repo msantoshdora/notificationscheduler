@@ -2,10 +2,14 @@ import { NotificationRequest } from "../models/notification.model";
 import { NotificationType } from "../types/notification.types";
 import { ChannelType } from "../types/channel.types";
 import { ChannelResolver } from "./channel-resolver.service";
+import { SchedulerService } from "./scheduler.service";
 
 export class NotificationService {
+
     send(notification: NotificationRequest) {
         try {
+
+        const execute = () => {
         const channelTypes: ChannelType[] = this.mapNotificationTypeToChannel(notification.type);
 
         const channels = channelTypes.map(type => {
@@ -14,8 +18,26 @@ export class NotificationService {
 
         const template = `Notification of type ${notification.type} with payload ${JSON.stringify(notification.payload)} send at ${notification.sendAt}`;
 
-        channels.forEach(async channel =>{
-          await channel.send(template, notification.userId)});
+        channels.forEach(async (channel) =>{
+            try {
+                await channel.send(template, notification.userId);
+            } catch (error) {
+                console.error(`Error sending via channel:`, error);
+            }
+        });
+        };
+
+        if (notification.sendAt) {
+            console.log("Scheduling notification for later:", notification.sendAt);
+            SchedulerService.schedule(
+                execute,
+                new Date(notification.sendAt)
+            ); 
+        } else {
+            console.log("Sending notification immediately");
+            execute();
+        }
+
         } catch (error) {
             console.error("Failed to send notification:", error);
         }

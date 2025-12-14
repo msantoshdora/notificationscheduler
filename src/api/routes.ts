@@ -16,7 +16,7 @@ export function createRoutes(app: Express) {
 
         res.json({ status: "Notification Accepted Successfully" });
     } catch (error) {
-        res.json({ status: "Notification Error" });
+        res.json({ status: "Error", message: (error as Error).message });
     }
   });
 
